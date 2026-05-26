@@ -2,7 +2,6 @@ package icu.binglieyan.controller.teacher;
 
 import icu.binglieyan.result.Result;
 import icu.binglieyan.service.TestCaseResultsService;
-import icu.binglieyan.vo.HiddenTestCaseResultsVO;
 import icu.binglieyan.vo.TestCaseResultsVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
