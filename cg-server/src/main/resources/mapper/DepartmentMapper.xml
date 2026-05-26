@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="icu.binglieyan.mapper.DepartmentMapper">
+
+    <select id="pageQuery" resultType="icu.binglieyan.vo.DepartmentPageQueryVO">
+        select
+            d.department_code,
+            d.department_name
+        from department d
+        <where>
+            <if test="departmentPageQueryDTO.departmentCode != null and departmentPageQueryDTO.departmentCode != ''">
+                and d.department_code like concat(#{departmentPageQueryDTO.departmentCode}, '%')
+            </if>
+            <if test="departmentPageQueryDTO.departmentName != null and departmentPageQueryDTO.departmentName != ''">
+                and d.department_name like concat(#{departmentPageQueryDTO.departmentName}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="icu.binglieyan.mapper.DictDataMapper">
+
+    <select id="pageQuery" resultType="icu.binglieyan.vo.DictDataPageQueryVO">
+        select
+        d.type_code,
+        d.data_code,
+        d.data_value,
+        d.sort_order,
+        d.description,
+        d.is_active as `active`
+        from dict_data d
+        <where>
+            <if test="dictDataPageQueryDTO.typeCode != null and dictDataPageQueryDTO.typeCode != ''">
+                and d.type_code like concat(#{dictDataPageQueryDTO.typeCode}, '%')
+            </if>
+            <if test="dictDataPageQueryDTO.dataCode != null and dictDataPageQueryDTO.dataCode != ''">
+                and d.data_code  like concat(#{dictDataPageQueryDTO.dataCode}, '%')
+            </if>
+            <if test="dictDataPageQueryDTO.dataValue != null and dictDataPageQueryDTO.dataValue != ''">
+                and d.data_value  like concat(#{dictDataPageQueryDTO.dataValue}, '%')
+            </if>
+            <if test="dictDataPageQueryDTO.active != null">
+                and d.is_active = #{dictDataPageQueryDTO.active}
+            </if>
+        </where>
+        order by d.type_code, d.sort_order
+    </select>
+</mapper>

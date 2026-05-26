@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="icu.binglieyan.mapper.MajorMapper">
+
+    <select id="pageQuery" resultType="icu.binglieyan.vo.MajorPageQueryVO">
+        select
+            m.major_code,
+            m.major_name,
+            d.department_name
+        from major m
+        left join department d on m.department_id = d.id
+        <where>
+            <if test="majorPageQueryDTO.majorCode != null and majorPageQueryDTO.majorCode != ''">
+                and m.major_code like concat(#{majorPageQueryDTO.majorCode}, '%')
+            </if>
+            <if test="majorPageQueryDTO.majorName != null and majorPageQueryDTO.majorName != ''">
+                and m.major_name like concat(#{majorPageQueryDTO.majorName}, '%')
+            </if>
+            <if test="majorPageQueryDTO.departmentCode != null and majorPageQueryDTO.departmentCode != ''">
+                and d.department_code like concat(#{majorPageQueryDTO.departmentCode}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

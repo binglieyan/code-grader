@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="icu.binglieyan.mapper.UsersMapper">
+
+    <select id="pageQuery" resultType="icu.binglieyan.vo.UsersPageQueryVO">
+        select
+        u.username,
+        u.email,
+        u.real_name,
+        u.user_number,
+        m.major_name,
+        c.class_name
+        from users u
+        left join major m on u.major_id = m.id
+        left join classes c on u.class_id = c.id
+        <where>
+                and u.role_code !=  'ADMIN'
+            <if test="usersPageQueryDTO.username != null and usersPageQueryDTO.username != ''">
+                and u.username like concat(#{usersPageQueryDTO.username}, '%')
+            </if>
+            <if test="usersPageQueryDTO.realName != null and usersPageQueryDTO.realName != ''">
+                and u.real_name like concat(#{usersPageQueryDTO.realName}, '%')
+            </if>
+            <if test="usersPageQueryDTO.userNumber != null and usersPageQueryDTO.userNumber != ''">
+                and u.user_number like concat(#{usersPageQueryDTO.userNumber}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

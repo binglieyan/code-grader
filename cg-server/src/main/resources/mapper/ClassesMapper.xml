@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="icu.binglieyan.mapper.ClassesMapper">
+
+    <select id="pageQuery" resultType="icu.binglieyan.vo.ClassesPageQueryVO">
+        select
+        c.class_name,
+        c.class_code,
+        u.user_number as `teacherNumber`
+        from classes c
+        left join users u on c.teacher_id = u.id
+        <where>
+            <if test="classesPageQueryDTO.className != null and classesPageQueryDTO.className != ''">
+                and c.class_name like concat(#{classesPageQueryDTO.className}, '%')
+            </if>
+            <if test="classesPageQueryDTO.classCode != null and classesPageQueryDTO.classCode != ''">
+                and c.class_code like concat(#{classesPageQueryDTO.classCode}, '%')
+            </if>
+            <if test="classesPageQueryDTO.teacherNumber != null and classesPageQueryDTO.teacherNumber != ''">
+                and c.teacher_id in (
+                select id from users
+                where user_number like concat(#{classesPageQueryDTO.teacherNumber}, '%')
+                )
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,78 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: prod
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    driver-class-name: ${cg.datasource.driver-class-name}
+    url: jdbc:mysql://${cg.datasource.host}:${cg.datasource.port}/${cg.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${cg.datasource.username}
+    password: ${cg.datasource.password}
+    hikari:
+      pool-name: HikariPool
+  data:
+    redis:
+      host: ${cg.redis.host}
+      password: ${cg.redis.password}
+      port: ${cg.redis.port}
+      database: ${cg.redis.database}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+mybatis-plus:
+  type-aliases-package: icu.binglieyan.dto, icu.binglieyan.entity, icu.binglieyan.vo
+  global-config:
+    db-config:
+      update-strategy: not_empty
+      id-type: auto
+
+logging:
+  level:
+    icu:
+      binglieyan:
+        mapper: debug
+        service: info
+        controller: info
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: icu.binglieyan.controller
+
+knife4j:
+  setting:
+    language: zh_cn
+
+cg:
+  jwt:
+    user-secret-key: code_grader_user_secret_key_0721
+    user-ttl: 14400000
+    user-token-name: token
+  docker:
+    image: ${cg.ubuntu.docker.image}
+    timeout: ${cg.ubuntu.docker.timeout}
+    workspace: ${cg.ubuntu.docker.workspace}
+    hostWorkspace: ${cg.ubuntu.docker.hostWorkspacePath}
+    host: ${cg.ubuntu.docker.host}
+    tlsVerify: ${cg.ubuntu.docker.tlsVerify}
+    containerWorkspace: ${cg.ubuntu.docker.containerWorkspace}
+  uploadFile:
+    uploadDir: ${cg.ubuntu.uploadFile.uploadDir}
+  outputFile:
+    outputDir: ${cg.ubuntu.outputFile.outputDir}
+
