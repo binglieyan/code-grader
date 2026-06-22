@@ -11,15 +11,6 @@ import java.util.List;
 public interface TestCaseResultsService {
 
     /**
-     * 启动自动判题
-     *
-     * @param assignmentId 作业ID
-     * @param studentId    学生ID
-     * @param submissionId 作业提交ID
-     */
-    void autoJudge(Long assignmentId, Long studentId, Long submissionId);
-
-    /**
      * 获取测试用例结果信息
      * @param questionSubmissionId 题目提交记录ID
      * @return 获取结果

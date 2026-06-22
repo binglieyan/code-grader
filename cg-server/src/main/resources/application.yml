@@ -75,4 +75,10 @@ cg:
     uploadDir: ${cg.ubuntu.uploadFile.uploadDir}
   outputFile:
     outputDir: ${cg.ubuntu.outputFile.outputDir}
+  rocketmq:
+    name-server: ${cg.rocketmq.name-server}
+    producer-group: ${cg.rocketmq.producer-group}
+    consumer-group: ${cg.rocketmq.consumer-group}
+    judge-request-topic: ${cg.rocketmq.judge-request-topic}
+    judge-result-topic: ${cg.rocketmq.judge-result-topic}
 

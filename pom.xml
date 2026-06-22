@@ -49,6 +49,7 @@
         <jbcrypt.version>1.0.2</jbcrypt.version>
         <docker-java.version>3.7.1</docker-java.version>
         <javaparser.version>3.28.2</javaparser.version>
+        <rocketmq-starter.version>2.3.6</rocketmq-starter.version>
     </properties>
 
     <!-- 纯依赖管理 - 只管理版本，不直接引入依赖 -->
@@ -172,6 +173,13 @@
                 <groupId>org.connectbot</groupId>
                 <artifactId>jbcrypt</artifactId>
                 <version>${jbcrypt.version}</version>
+            </dependency>
+
+            <!-- RocketMQ -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq-starter.version}</version>
             </dependency>
 
             <!-- 内部模块依赖管理 -->

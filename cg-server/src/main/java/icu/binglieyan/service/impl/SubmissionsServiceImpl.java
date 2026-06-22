@@ -9,8 +9,8 @@ import icu.binglieyan.exception.DictDataException;
 import icu.binglieyan.exception.SubmissionsException;
 import icu.binglieyan.exception.UserScopeException;
 import icu.binglieyan.mapper.*;
+import icu.binglieyan.producer.JudgeRequestProducer;
 import icu.binglieyan.service.SubmissionsService;
-import icu.binglieyan.service.TestCaseResultsService;
 import icu.binglieyan.utils.IpUtil;
 import icu.binglieyan.utils.UserAgentUtil;
 import icu.binglieyan.vo.SubmissionsVO;
@@ -31,7 +31,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SubmissionsServiceImpl extends ServiceImpl<SubmissionsMapper, Submissions> implements SubmissionsService {
 
-    private final TestCaseResultsService testCaseResultsService;
+    private final JudgeRequestProducer judgeRequestProducer;
     private final AssignmentsMapper assignmentsMapper;
     private final UsersMapper usersMapper;
     private final DictDataMapper dictDataMapper;
@@ -102,8 +102,8 @@ public class SubmissionsServiceImpl extends ServiceImpl<SubmissionsMapper, Submi
                 .build();
         this.save(submissions);
 
-        //5. 开始自动判题
-        testCaseResultsService.autoJudge(assignmentId, studentIdOpt.get(), submissions.getId());
+        //5. 发送判题请求到 RocketMQ
+        judgeRequestProducer.send(submissions.getId(), assignmentId, studentIdOpt.get());
     }
 
     /**
