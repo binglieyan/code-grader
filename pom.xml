@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.5</version>
+        <version>4.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>icu.binglieyan</groupId>
@@ -48,7 +48,7 @@
         <de.jplag.version>6.3.0</de.jplag.version>
         <jbcrypt.version>1.0.2</jbcrypt.version>
         <docker-java.version>3.7.1</docker-java.version>
-        <javaparser.version>3.28.1</javaparser.version>
+        <javaparser.version>3.28.2</javaparser.version>
     </properties>
 
     <!-- 纯依赖管理 - 只管理版本，不直接引入依赖 -->
@@ -58,21 +58,21 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-webmvc</artifactId>
-                <version>4.0.5</version>
+                <version>4.1.0</version>
             </dependency>
 
             <!-- Spring Boot Redis数据访问依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>4.0.5</version>
+                <version>4.1.0</version>
             </dependency>
 
             <!-- Spring Boot数据验证依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-validation</artifactId>
-                <version>4.0.5</version>
+                <version>4.1.0</version>
             </dependency>
 
             <!-- 工具类 -->
