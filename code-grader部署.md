@@ -5,11 +5,9 @@ docker run -d \
   --network code-grader-network \
   -p 8080:8080 \
   -e LANG=C.UTF-8 \
-  -v /var/run/docker.sock:/var/run/docker.sock \
   -v /opt/code-grader/app/cg-server.jar:/app/app.jar \
   -v /opt/code-grader/upload:/app/upload \
   -v /opt/code-grader/output:/app/output \
-  -v /opt/code-grader/workspace:/app/code-workspace \
   -w /app \
   graalvm:25.0.3 \
   java -Dfile.encoding=UTF-8 -Xms512m -Xmx1024m -XX:+UseG1GC -XX:-UseCompressedClassPointers -jar app.jar
@@ -58,6 +56,9 @@ docker run -d \
   sh mqnamesrv
 
 # RocketMQ Broker（消息代理 — 存储和投递消息）
+# 注意命名卷修改权限
+# sudo chown -R 3000:3000 /var/lib/docker/volumes/code-grader-rocketmq-broker-logs/_data
+# sudo chown -R 3000:3000 /var/lib/docker/volumes/code-grader-rocketmq-broker-store/_data
 docker run -d \
   --name code-grader-rocketmq-broker \
   --network code-grader-network \
@@ -79,8 +80,9 @@ docker run -d \
   -e LANG=C.UTF-8 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /opt/code-grader/judge/code-grader-judge.jar:/app/app.jar \
+  -v /opt/code-grader/upload:/app/upload \
   -v /opt/code-grader/workspace:/app/code-workspace \
   -w /app \
   graalvm:25.0.3 \
-  java -Dfile.encoding=UTF-8 -Xms512m -Xmx1024m -XX:+UseG1GC -XX:-UseCompressedClassPointers -jar app.jar --spring.profiles.active=prod
+  java -Dfile.encoding=UTF-8 -Xms512m -Xmx1024m -XX:+UseG1GC -XX:-UseCompressedClassPointers -jar app.jar
 
