@@ -58,18 +58,23 @@ knife4j:
   setting:
     language: zh_cn
 
+rocketmq:
+  name-server: ${cg.rocketmq.name-server}
+  producer:
+    group: ${cg.rocketmq.producer-group}
+
 cg:
   jwt:
     user-secret-key: code_grader_user_secret_key_0721
     user-ttl: 14400000
     user-token-name: token
   uploadFile:
-    uploadDir: ${cg.ubuntu.uploadFile.uploadDir}
+    uploadDir: ${cg.uploadFile.uploadDir}
   outputFile:
-    outputDir: ${cg.ubuntu.outputFile.outputDir}
+    outputDir: ${cg.outputFile.outputDir}
   rocketmq:
-    name-server: ${cg.ubuntu.rocketmq.name-server}
-    producer-group: ${cg.ubuntu.rocketmq.producer-group}
-    consumer-group: ${cg.ubuntu.rocketmq.consumer-group}
-    judge-request-topic: ${cg.ubuntu.rocketmq.judge-request-topic}
-    judge-result-topic: ${cg.ubuntu.rocketmq.judge-result-topic}
+    name-server: ${rocketmq.name-server}
+    producer-group: code-grader-producer
+    consumer-group: judge-result-consumer
+    judge-request-topic: JUDGE_REQUEST
+    judge-result-topic: JUDGE_RESULT
