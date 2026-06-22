@@ -40,7 +40,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 
 /**
@@ -275,7 +275,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
             // 缓存完整信息到 Redis（包含所有字段供后续使用）
             Map<String, Object> userInfo = creatUserInfoMap(users);
-            redisTemplate.opsForValue().set(redisKey, userInfo, 4, TimeUnit.HOURS);
+            redisTemplate.opsForValue().set(redisKey, userInfo, Duration.ofHours(4));
 
         } else {
             // Redis 命中：从 Redis 重建用户信息
@@ -338,19 +338,18 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         Map<String, Object> userLoginInfo = new HashMap<>(1);
         // 只存储用户 ID 用于令牌验证
         userLoginInfo.put("id", users.getId());
+        Duration tokenDuration = Duration.ofMillis(jwtProperties.getUserTtl() + 5 * 60 * 1000);
         redisTemplate.opsForValue().set(
                 tokenKey,
                 userLoginInfo,
-                jwtProperties.getUserTtl() + 5 * 60 * 1000,
-                TimeUnit.MILLISECONDS
+                tokenDuration
         );
 
         // 修改用户 token 引用
         redisTemplate.opsForValue().set(
                 userTokenKey,
                 token,
-                jwtProperties.getUserTtl() + 5 * 60 * 1000,
-                TimeUnit.MILLISECONDS
+                tokenDuration
         );
 
         return UsersLoginVO.builder()

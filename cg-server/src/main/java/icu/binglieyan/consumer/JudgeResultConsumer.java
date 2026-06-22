@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @Service
 @RocketMQMessageListener(
-        topic = "${cg.rocketmq.judge-result-topic:JUDGE_RESULT}",
-        consumerGroup = "${cg.rocketmq.consumer-group:judge-result-consumer}"
+        consumerGroup = "${cg.rocketmq.consumer-group:judge-result-consumer}",
+        topic = "${cg.rocketmq.judge-result-topic:JUDGE_RESULT}"
 )
 public class JudgeResultConsumer implements RocketMQListener<JudgeResultDTO> {
 

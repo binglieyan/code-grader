@@ -63,18 +63,16 @@ cg:
     user-secret-key: code_grader_user_secret_key_0721  # JWT密钥，请修改为强随机字符串
     user-ttl: 14400000
     user-token-name: token
-  docker:
-    image: ${cg.ubuntu.docker.image}
-    timeout: ${cg.ubuntu.docker.timeout}
-    workspace: ${cg.ubuntu.docker.workspace}
-    hostWorkspace: ${cg.ubuntu.docker.hostWorkspacePath}
-    host: ${cg.ubuntu.docker.host}
-    tlsVerify: ${cg.ubuntu.docker.tlsVerify}
-    containerWorkspace: ${cg.ubuntu.docker.containerWorkspace}
   uploadFile:
     uploadDir: ${cg.ubuntu.uploadFile.uploadDir}
   outputFile:
     outputDir: ${cg.ubuntu.outputFile.outputDir}
+  rocketmq:
+    name-server: ${cg.ubuntu.rocketmq.name-server}
+    producer-group: ${cg.ubuntu.rocketmq.producer-group}
+    consumer-group: ${cg.ubuntu.rocketmq.consumer-group}
+    judge-request-topic: ${cg.ubuntu.rocketmq.judge-request-topic}
+    judge-result-topic: ${cg.ubuntu.rocketmq.judge-result-topic}
 
 # 注意：此文件为配置模板，实际使用时需要创建 application-dev.yml 和 application-prod.yml
 # 并在其中定义 cg.* 相关的系统属性或环境变量

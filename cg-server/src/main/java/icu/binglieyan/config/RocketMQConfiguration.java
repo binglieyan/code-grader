@@ -1,11 +1,15 @@
 package icu.binglieyan.config;
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * RocketMQ 配置类
- * rocketmq-spring-boot-starter 提供自动配置，此处仅做额外定制
+ * 所有 RocketMQ 参数统一从 cg.rocketmq.* 读取
  *
  * @author binglieyan
  */
@@ -13,6 +17,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RocketMQConfiguration {
 
-    // RocketMQTemplate 由 rocketmq-spring-boot-starter 自动配置
-    // 如需自定义消息转换器或发送超时等参数，可在此添加 @Bean 方法
+    @Value("${cg.rocketmq.name-server}")
+    private String nameServer;
+
+    @Value("${cg.rocketmq.producer-group}")
+    private String producerGroup;
+
+    @Bean
+    public RocketMQTemplate rocketMQTemplate() {
+        DefaultMQProducer producer = new DefaultMQProducer();
+        producer.setNamesrvAddr(nameServer);
+        producer.setProducerGroup(producerGroup);
+        RocketMQTemplate template = new RocketMQTemplate();
+        template.setProducer(producer);
+        return template;
+    }
 }
