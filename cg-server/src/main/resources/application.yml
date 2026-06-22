@@ -73,7 +73,7 @@ cg:
   outputFile:
     outputDir: ${cg.outputFile.outputDir}
   rocketmq:
-    name-server: ${rocketmq.name-server}
+    name-server: ${cg.rocketmq.name-server}
     producer-group: code-grader-producer
     consumer-group: judge-result-consumer
     judge-request-topic: JUDGE_REQUEST
