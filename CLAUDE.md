@@ -53,7 +53,7 @@
 
 ### DTO/VO 规范
 - **DTO (Data Transfer Object)**: 位于 `cg-pojo/src/main/java/icu/binglieyan/dto/`
-  - 用于接收前端参数或服务间消息传递
+  - 用于接收前端参数或服务之间消息传递
   - 命名格式：`EntityDTO`、`EntityUpdateDTO`、`EntityPageQueryDTO`
 - **VO (View Object)**: 位于 `cg-pojo/src/main/java/icu/binglieyan/vo/`
   - 用于返回前端数据
@@ -258,25 +258,25 @@ spring.threads.virtual.enabled: true    # 启用虚拟线程
 spring.servlet.multipart:               # 文件上传：max 10MB
 
 # 数据源（通过 cg.datasource.* 占位符）
-cg.datasource.driver-class-name / host / port / database / username / password
+# cg.datasource.driver-class-name / host / port / database / username / password
 
 # Redis（通过 cg.redis.* 占位符）
-cg.redis.host / port / password / database
+# cg.redis.host / port / password / database
 
 # RocketMQ（通过 cg.rocketmq.* 占位符）
-cg.rocketmq.name-server                # NameServer 地址
-cg.rocketmq.producer-group             # 生产者组
-cg.rocketmq.consumer-group             # 消费者组
-cg.rocketmq.judge-request-topic        # 判题请求主题
-cg.rocketmq.judge-result-topic         # 判题结果主题
+# cg.rocketmq.name-server                # NameServer 地址
+# cg.rocketmq.producer-group             # 生产者组
+# cg.rocketmq.consumer-group             # 消费者组
+# cg.rocketmq.judge-request-topic        # 判题请求主题
+# cg.rocketmq.judge-result-topic         # 判题结果主题
 
 # JWT
-cg.jwt.user-secret-key                 # JWT 签名密钥
-cg.jwt.user-ttl: 14400000              # Token 有效期（4小时）
+# cg.jwt.user-secret-key                 # JWT 签名密钥
+# cg.jwt.user-ttl: 14400000              # Token 有效期（4小时）
 
 # 文件路径
-cg.uploadFile.uploadDir                # 上传文件目录
-cg.outputFile.outputDir                # 判题输出目录
+# cg.uploadFile.uploadDir                # 上传文件目录
+# cg.outputFile.outputDir                # 判题输出目录
 ```
 
 ### MyBatis-Plus 配置
@@ -295,15 +295,15 @@ cg.outputFile.outputDir                # 判题输出目录
 
 详见 `code-grader部署.md`，整体为 Docker 容器化微服务部署：
 
-| 服务 | 容器名 | 端口 | 镜像 |
-|------|--------|------|------|
-| 主服务 | code-grader-app | 8080 | GraalVM 25.0.3 |
-| 判题服务 | code-grader-judge | 8081 | GraalVM 25.0.3 |
-| MySQL | code-grader-mysql | 3306 | MySQL 9.7.0 |
-| Redis | code-grader-redis | 6379 | Redis 8.6.0 |
-| Nginx | code-grader-nginx | 80 | Nginx 1.31.2 |
-| RocketMQ NameServer | code-grader-rocketmq | 9876 | RocketMQ 5.5.0 |
-| RocketMQ Broker | code-grader-rocketmq-broker | 10911/10909 | RocketMQ 5.5.0 |
+| 服务                  | 容器名                         | 端口          | 镜像             |
+|---------------------|-----------------------------|-------------|----------------|
+| 主服务                 | code-grader-app             | 8080        | GraalVM 25.0.3 |
+| 判题服务                | code-grader-judge           | 8081        | GraalVM 25.0.3 |
+| MySQL               | code-grader-mysql           | 3306        | MySQL 9.7.0    |
+| Redis               | code-grader-redis           | 6379        | Redis 8.6.0    |
+| Nginx               | code-grader-nginx           | 80          | Nginx 1.31.2   |
+| RocketMQ NameServer | code-grader-rocketmq        | 9876        | RocketMQ 5.5.0 |
+| RocketMQ Broker     | code-grader-rocketmq-broker | 10911/10909 | RocketMQ 5.5.0 |
 
 所有服务通过 `code-grader-network` Docker 网络通信。Java 服务使用 GraalVM 25.0.3 运行时，配置 `-Xms512m -Xmx1024m -XX:+UseG1GC -XX:-UseCompressedClassPointers`。
 
